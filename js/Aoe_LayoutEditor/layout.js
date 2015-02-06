@@ -1,5 +1,23 @@
 jQuery.noConflict();
 
+var blockLibrary = [{
+    name: 'Columns [50/50]',
+    type: 'aoe_layouteditor/columns5050',
+    groups: [ 'containers' ]
+}, {
+    name: 'Columns [33/33/33]',
+    type: 'aoe_layouteditor/columns333333',
+    groups: [ 'containers' ]
+}, {
+    name: 'Wysiwyg',
+    type: 'aoe_layouteditor/wysiwyg',
+    groups: [ 'basics' ]
+}, {
+    name: 'Image',
+    type: 'aoe_layouteditor/image',
+    groups: [ 'basics' ]
+}];
+
 var AOE_LAYOUTEDITOR = (function ($, _) {
 
     var templates = {
@@ -10,7 +28,7 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
     }
 
     // read current layout xml to initialize the editor
-    var layoutFieldValue = $('#page_layout_update_xml').val();
+    var layoutFieldValue = $('#page_layout_update_xml').val() || '';
     var xml = $($.parseXML('<layout id="root">' + layoutFieldValue + '</layout>'));
 
     var createNewBlock = function(parentId) {
@@ -42,7 +60,7 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
     var render = function() {
         var xmlString = $.format(xml.find('layout').html());
         $('#page_layout_update_xml').val(xmlString);
-        // $('pre#debug').text(xmlString);
+        $('pre#debug').text(xmlString);
         $('#root').html(renderChildren(xml.find('layout').children('block')));
         init();
     }

@@ -2,6 +2,7 @@
 <layout version="0.0.1">
 
     <adminhtml_cms_page_edit>
+
         <reference name="head">
             <action method="addCss"><stylesheet>Aoe_LayoutEditor/css/styles.css</stylesheet></action>
             <action method="addJs"><script>Aoe_LayoutEditor/jquery-ui-1.11.2.custom/external/jquery/jquery.js</script></action>
@@ -10,10 +11,14 @@
             <action method="addJs"><script>Aoe_LayoutEditor/jquery.format.js</script></action>
             <action method="addJs"><script>Aoe_LayoutEditor/layout.js</script></action>
         </reference>
+
         <reference name="cms_page_edit_tabs">
-            <block type="Aoe_LayoutEditor/cms_page_edit_tab_layouteditor" name="cms_page_edit_tab_layouteditor" after="cms_page_edit_tab_layouteditor"/>
+            <block type="Aoe_LayoutEditor/cms_page_edit_tab_layouteditor" name="cms_page_edit_tab_layouteditor">
+                <block type="Aoe_LayoutEditor/Picker_TabContainer" name="blockpicker" />
+            </block>
             <action method="addTab"><name>layouteditor_section</name><block>cms_page_edit_tab_layouteditor</block></action>
         </reference>
+
     </adminhtml_cms_page_edit>
 
 </layout>
