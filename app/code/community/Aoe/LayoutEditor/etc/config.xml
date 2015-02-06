@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Aoe_LayoutEditor>
+            <version>0.0.1</version>
+        </Aoe_LayoutEditor>
+    </modules>
+
+    <global>
+        <blocks>
+            <Aoe_LayoutEditor>
+                <class>Aoe_LayoutEditor_Block</class>
+            </Aoe_LayoutEditor>
+        </blocks>
+        <helpers>
+            <Aoe_LayoutEditor>
+                <class>Aoe_LayoutEditor_Helper</class>
+            </Aoe_LayoutEditor>
+        </helpers>
+        <models>
+            <Aoe_LayoutEditor>
+                <class>Aoe_LayoutEditor_Model</class>
+            </Aoe_LayoutEditor>
+        </models>
+    </global>
+</config>

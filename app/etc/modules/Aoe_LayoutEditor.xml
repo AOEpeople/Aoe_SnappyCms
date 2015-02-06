@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Aoe_LayoutEditor>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends />
+        </Aoe_LayoutEditor>
+    </modules>
+</config>
