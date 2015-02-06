@@ -23,4 +23,13 @@
             </Aoe_LayoutEditor>
         </models>
     </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <Aoe_LayoutEditor><file>Aoe_LayoutEditor/Aoe_LayoutEditor.xml</file></Aoe_LayoutEditor>
+            </updates>
+        </layout>
+    </adminhtml>
+
 </config>

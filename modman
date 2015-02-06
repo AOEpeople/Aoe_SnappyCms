@@ -1,2 +1,6 @@
-app/etc/modules/*                                            app/etc/modules/
+app/etc/modules/Aoe_LayoutEditor.xml
 app/code/community/Aoe/LayoutEditor/
+app/design/adminhtml/default/default/layout/Aoe_LayoutEditor/
+app/design/adminhtml/default/default/template/Aoe_LayoutEditor/
+skin/adminhtml/default/default/Aoe_LayoutEditor
+js/Aoe_LayoutEditor
