@@ -14,7 +14,7 @@
 
         <reference name="cms_page_edit_tabs">
             <block type="Aoe_LayoutEditor/cms_page_edit_tab_layouteditor" name="cms_page_edit_tab_layouteditor">
-                <block type="Aoe_LayoutEditor/Picker_TabContainer" name="blockpicker" />
+                <block type="Aoe_LayoutEditor/BlockPicker" name="blockpicker" />
             </block>
             <action method="addTab"><name>layouteditor_section</name><block>cms_page_edit_tab_layouteditor</block></action>
         </reference>

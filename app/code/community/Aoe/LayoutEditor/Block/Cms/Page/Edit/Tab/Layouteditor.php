@@ -6,9 +6,7 @@
  * @author Fabrizio Branca
  * @since 2015-02-05
  */
-class Aoe_LayoutEditor_Block_Cms_Page_Edit_Tab_Layouteditor
-    extends Mage_Adminhtml_Block_Widget
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Aoe_LayoutEditor_Block_Cms_Page_Edit_Tab_Layouteditor extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 
     protected $_template = 'Aoe_LayoutEditor/layouteditor.phtml';

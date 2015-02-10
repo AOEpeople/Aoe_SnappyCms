@@ -1,0 +1,31 @@
+<?php /* @var $this Aoe_LayoutEditor_Block_BlockPicker */?>
+<div id="blockpicker">
+    <ul class="tabs-horiz">
+        <?php foreach($this->getCategories() as $category): ?>
+        <li>
+            <a class="tab-item-link" href="#tabs-<?php echo $category['id']; ?>">
+                <span><?php echo $category['label']; ?></span>
+            </a>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <?php foreach($this->getCategories() as $category): ?>
+    <div id="tabs-<?php echo $category['id']; ?>">
+        <?php foreach($this->getElementsForCategory($category['id']) as $type => $block): ?>
+            <div class="block-blueprint" data-type="<?php echo $type; ?>">
+                <div class="icon"><img src="<?php echo $this->getSkinUrl($block['icon']) ?>" alt=""/></div>
+                <div class="label"><?php echo $block['label']; ?></div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php endforeach; ?>
+
+</div>
+
+<script>
+    var AOE_LAYOUTEDITOR_BLOCKDEFINITION = <?php echo Zend_Json::encode($this->getAllElements()); ?>;
+    jQuery(function() {
+        jQuery('#blockpicker').tabs();
+    })
+</script>

@@ -2,7 +2,28 @@
 
 <?php echo $this->getChildHtml('blockpicker'); ?>
 
-<a href="#" id="create">Create</a>
+<script>
+    // TODO: this shouldn't be hardcoded
+    var PAGE_CONTAINERS = {
+        empty: {},
+        one_column: {
+            content: { type: 'core/text_list' }
+        },
+        two_columns_left: {
+            left: { type: 'core/text_list' },
+            content: { type: 'core/text_list' }
+        },
+        two_columns_right: {
+            content: { type: 'core/text_list' },
+            right: { type: 'core/text_list' }
+        },
+        three_columns: {
+            left: { type: 'core/text_list' },
+            content: { type: 'core/text_list' },
+            right: { type: 'core/text_list' }
+        }
+    };
+</script>
 
 <div id="root"></div>
 

@@ -1,14 +1,47 @@
 
+#blockpicker {
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
 
-.block .children {
+
+#blockpicker ul.tabs-horiz {
+    margin: 0;
+}
+
+#blockpicker li.ui-state-active a {
+    background-color: white;
+    border-bottom: 1px solid white;
+}
+
+#blockpicker .block-blueprint {
+    margin: 10px;
+    float: left;
+}
+
+#blockpicker .block-blueprint .icon img {
+    width: 80px;
+    height: 80px;
+}
+
+#blockpicker .block-blueprint .label {
+    font-size: smaller;
+}
+
+
+.item .children,
+.item .child {
     border: 1px solid #d6d6d6;
     padding: 15px;
     padding-bottom: 0;
+    margin-bottom: 15px;
     background-color: white;
     min-height: 30px;
 }
 
-.block .children.ui-state-highlight {
+.item .children.ui-state-highlight,
+.item .child.ui-state-highlight {
     background-color: red;
 }
 
