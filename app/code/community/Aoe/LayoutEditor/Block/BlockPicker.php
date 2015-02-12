@@ -14,14 +14,28 @@ class Aoe_LayoutEditor_Block_BlockPicker extends Mage_Adminhtml_Block_Template
     public function getElementsForCategory($category) {
         $result = array();
         foreach ($this->getAllElements() as $type => $conf) {
-            if (in_array($category, $conf['categories'])) {
+            if (in_array($category, Mage::helper('Aoe_LayoutEditor')->tags2Array($conf->categories))) {
                 $result[$type] = $conf;
             }
         }
         return $result;
     }
 
+    public function getJsonConfig() {
+
+    }
+
     public function getAllElements() {
+        $config = Mage::getModel('Aoe_LayoutEditor/Config'); /* @var $config Aoe_LayoutEditor_Model_Config */
+        $blocks = $config->getNode('aoe_layouteditor/blocks')->children();
+        $results = array();
+        foreach ($blocks as $key => $block) { /* @var $block Mage_Core_Model_Config_Element */
+            $results[(string)$block->type] = $block->asArray();
+        }
+        var_dump($results);
+        return $results;
+
+
         return array(
             'core/text_list' => array(
                 'id' => 'core_text_list',
@@ -94,14 +108,26 @@ class Aoe_LayoutEditor_Block_BlockPicker extends Mage_Adminhtml_Block_Template
                 'label' => 'Text',
                 'icon' => 'Aoe_LayoutEditor/img/icons/text.png',
                 'categories' => array('basics'),
-                'children' => array()
+                'children' => array(),
+                'fields' => array(
+                    'text' => array(
+                        'label' => 'Text',
+                        'type' => 'textarea'
+                    )
+                )
             ),
             'Aoe_LayoutEditor/Basic_Picture' => array(
                 'id' => 'basic_picture',
                 'label' => 'Picture',
                 'icon' => 'Aoe_LayoutEditor/img/icons/pic.png',
                 'categories' => array('basics'),
-                'children' => array()
+                'children' => array(),
+                'fields' => array(
+                    'picture' => array(
+                        'label' => 'Picture',
+                        'type' => 'input'
+                    )
+                )
             ),
         );
     }

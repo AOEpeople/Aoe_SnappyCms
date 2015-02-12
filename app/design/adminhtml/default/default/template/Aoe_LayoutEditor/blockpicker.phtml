@@ -14,8 +14,8 @@
     <div id="tabs-<?php echo $category['id']; ?>">
         <?php foreach($this->getElementsForCategory($category['id']) as $type => $block): ?>
             <div class="block-blueprint" data-type="<?php echo $type; ?>">
-                <div class="icon"><img src="<?php echo $this->getSkinUrl($block['icon']) ?>" alt=""/></div>
-                <div class="label"><?php echo $block['label']; ?></div>
+                <div class="icon"><img src="<?php echo $this->getSkinUrl((string)$block->icon) ?>" alt=""/></div>
+                <div class="label"><?php echo (string)$block->label; ?></div>
             </div>
         <?php endforeach; ?>
     </div>

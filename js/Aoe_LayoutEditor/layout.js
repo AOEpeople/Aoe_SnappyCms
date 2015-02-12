@@ -1,39 +1,43 @@
 jQuery.noConflict();
 
-var blockLibrary = [{
-    name: 'Columns [50/50]',
-    type: 'aoe_layouteditor/columns5050',
-    groups: [ 'containers' ]
-}, {
-    name: 'Columns [33/33/33]',
-    type: 'aoe_layouteditor/columns333333',
-    groups: [ 'containers' ]
-}, {
-    name: 'Wysiwyg',
-    type: 'aoe_layouteditor/wysiwyg',
-    groups: [ 'basics' ]
-}, {
-    name: 'Image',
-    type: 'aoe_layouteditor/image',
-    groups: [ 'basics' ]
-}];
 
+/**
+ * AOE LayoutEditor
+ *
+ * @author Fabrizio Branca
+ * @since 2015-02-10
+ */
 var AOE_LAYOUTEDITOR = (function ($, _) {
 
+
+
+    /**
+     * Layout xml object
+     */
+    var xml;
+
+
+
+    /**
+     * Templates
+     */
     var templates = {
-        blockTemplate: '<div name="<%= name %>" class="item <%= tagName %> entry-edit">' +
-            '<div class="entry-edit-head"><h4><%= title %></h4></div>' +
-            '<div class="fieldset"><div class="children-container"><%= children %></div></div>' +
+        blockTemplate: '<div name="<%= name %>" class="item <%= tagName %> <%= csstype %> entry-edit">' +
+            '<div class="entry-edit-head"><h4><%= title %></h4><div class="actions"><ul></ul></div></div>' +
+            '<div class="fieldset"><div class="preview"><%= preview %></div><div class="children-container"><%= children %></div></div>' +
         '</div>'
     }
 
-    // read current layout xml to initialize the editor
-    var layoutFieldValue = $('#page_layout_update_xml').val() || '';
-    var xml = $($.parseXML('<layout name="root">' + layoutFieldValue + '</layout>'));
 
+
+    /**
+     * Initialize layout xml object
+     */
     var initXml = function() {
         xml = $($.parseXML('<layout name="root">' + getLayoutUpdateXmlFieldContent() + '</layout>'));
     };
+
+
 
     /**
      * Get layout_update_xml field content (or generate skeleton, if empty)
@@ -51,6 +55,8 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
         return content;
     }
 
+
+
     /**
      * Create block
      *
@@ -65,7 +71,7 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
         $blockXml.attr('type', type);
 
         if (dropzone == 'catchall') {
-            $blockXml.attr('name', _.uniqueId('id_'));
+            $blockXml.attr('name', getUniqName());
         } else { // override name
             $blockXml.attr('name', dropzone);
         }
@@ -74,6 +80,114 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
         render();
     }
 
+
+    /**
+     * Get uniq name (that's not in use yet)
+     *
+     * @returns string
+     */
+    var getUniqName = function() {
+        var name;
+        do {
+            name = _.uniqueId('id_');
+        } while (xml.find("[name='"+name+"']").length > 0);
+        return name;
+    }
+
+
+
+    /**
+     * Edit block
+     */
+    var editBlock = function(name) {
+
+        var $blockXml = xml.find("[name='"+name+"']");
+        var type = $blockXml.attr('type');
+
+        var $form = $('<div id="block_form"><div class="fieldset"><div class="hor-scroll"><h3>Edit Block "'+name+'"</h3><table cellspacing="0" class="form-list"><tbody></tbody></table></div></div></div>');
+        var $tbody = $form.find('tbody');
+
+
+        // <input type="text" class="required-entry input-text required-entry" value="Pending Import" name="label" id="label">
+
+        $.each(AOE_LAYOUTEDITOR_BLOCKDEFINITION[type].fields, function(key, value) {
+            console.log(value);
+            if (value.type == 'textarea') {
+                $tbody.append('<tr><td class="label"><label for="' + key + '">' + value.label + '</label></td>' +
+                '<td class="value"><textarea cols="15" rows="2" class="textarea" name="' + key + '"></textarea></td>');
+            }
+        });
+        $tbody.append('<tr><td class="label"></td><td class="value"><button type="button" class="scalable" id="save-block"><span>Save</span></button></td>');
+
+        if ($('#block_form_dialog') && typeof(Windows) != 'undefined') {
+            Windows.close('block_form_dialog');
+        }
+
+        var dialogWindow = Dialog.info($form.html(), {
+            closable: true,
+            resizable: false,
+            draggable: true,
+            className: 'magento',
+            windowClassName: 'popup-window',
+            title: 'Edit block: ' + name,
+            top: 50,
+            width: 700,
+            height: 500,
+            zIndex: 1000,
+            recenterAuto: false,
+            hideEffect: Element.hide,
+            showEffect: Element.show,
+            id: 'block_form_dialog',
+            onClose: function (param, el) {}
+        });
+
+        // set values
+        $.each(getFieldValues(name), function(key, value) {
+            $('#block_form_dialog [name="'+key+'"]').val(value);
+        });
+
+        $('#save-block').click(function() {
+            // write values to xml object
+            $('#block_form_dialog').find('input, textarea').each(function(key, value) {
+                var field = $(this).attr('name');
+                var methodName = 'set' + field.charAt(0).toUpperCase() + field.slice(1);
+                $blockXml.find('action[method="'+methodName+'"]').remove(); // delete existing node
+                $blockXml.append('<action method="'+methodName+'"><value><![CDATA['+ $(this).val()+']]></value></action>')
+            });
+            Windows.close('block_form_dialog');
+            render();
+            return false;
+        })
+    }
+
+
+    /**
+     * Get field values for a given block
+     *
+     * @param name
+     * @returns {{}}
+     */
+    var getFieldValues = function(name) {
+        var $blockXml = xml.find("[name='"+name+"']");
+        var type = $blockXml.attr('type');
+        var fieldValues = {};
+        if (type && typeof AOE_LAYOUTEDITOR_BLOCKDEFINITION[type].fields != 'undefined') {
+            $.each(AOE_LAYOUTEDITOR_BLOCKDEFINITION[type].fields, function (key, value) {
+                var methodName = 'set' + key.charAt(0).toUpperCase() + key.slice(1);
+                fieldValues[key] = $blockXml.find('action[method="' + methodName + '"]').text();
+            });
+        }
+        return fieldValues;
+    }
+
+
+
+    /**
+     * Read item's configuration to detect dropzones and then traverse xml object's children to populate the zones
+     *
+     * @param currentNode
+     * @returns {Array}
+     */
     var getDropZones = function(currentNode) {
         var zones = [];
         if (currentNode.prop("tagName") == 'reference') {
@@ -87,10 +201,11 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
                     zones.push('<div class="children" data-name="'+currentNode.attr('name')+'" data-zone="' + key + '"><h3>' + key + '</h3>' + renderChildren(currentNode.children("block")) + '</div>');
                 }
             })
-            console.log(currentNode.attr('type'));
         }
         return zones;
     }
+
+
 
     /**
      * Turns XML representation into HTML representation
@@ -102,16 +217,35 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
         var blockTemplate = _.template(templates.blockTemplate);
 
         currentNode = $(currentNode);
+        var name = currentNode.attr('name');
+
+        // render preview
+        var preview = '';
+        console.log('Rendering ' + name);
+        $.each(getFieldValues(name), function(key, value) {
+            preview += '<strong>'+key+':</strong> ' + value + '</br>';
+        });
+
+        var type = xml.find("[name='"+name+"']").attr('type');
 
         return blockTemplate({
-            title: $(currentNode).attr('name'),
-            id: currentNode.attr('id'),
+            preview: preview,
+            csstype: type ? type.toLowerCase().replace(/[^a-z0-9]/g, '-') : '',
+            name: name,
+            title: name,
             tagName: currentNode.prop("tagName"),
-            // children: renderChildren(currentNode.children('block'))
             children: getDropZones(currentNode).join('')
         });
     }
 
+
+
+    /**
+     * Render an array of children
+     *
+     * @param children
+     * @returns {string}
+     */
     var renderChildren = function(children) {
         var html = '';
         children.each(function(key, blockXml) {
@@ -120,6 +254,42 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
         return html;
     }
 
+
+
+    /**
+     * Initialize editor
+     */
+    var init = function() {
+
+        $('#page_content').removeClass('required-entry');
+
+        initXml();
+
+        console.log("Reinit");
+        $('body').delegate('.block .actions a.remove', 'click', function() {
+            console.log($(this));
+            var name = $(this).closest('.block').attr('name');
+            console.log('Removing ' + name);
+            xml.find("[name='"+name+"']").remove();
+            render();
+            return false;
+        });
+
+        $('body').delegate('.block .actions a.edit', 'click', function() {
+            console.log($(this));
+            var name = $(this).closest('.block').attr('name');
+            console.log('Editing ' + name);
+            editBlock(name);
+            return false;
+        });
+
+
+        render(); // calls reinit()
+    }
+
+    /**
+     * Render UI
+     */
     var render = function() {
         var xmlString = $.format(xml.find('layout').html());
 
@@ -129,18 +299,15 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
 
         $('#root').html(renderChildren(xml.find('layout').children('reference'))); // entry points: <reference> tags
 
-        init();
+        reinit();
     }
 
-    var init = function() {
 
-        initXml();
 
-        $('.action-delete').click(function() {
-            var id = $(this).closest('.block').attr('id');
-            xml.find('#'+id).remove();
-            render();
-        });
+    /**
+     * Reinit UI elements after updating
+     */
+    var reinit = function() {
 
         $('.block-blueprint').draggable({
             helper: "clone"
@@ -201,18 +368,29 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
             out: function(event, ui) { $(this).removeClass("ui-state-highlight"); }
         });
 
+        $('.block .actions ul').append('<li><a class="remove" href="#">Remove</a></li>');
+        $('.block .actions ul').append('<li><a class="edit" href="#">Edit</a></li>');
     }
 
+
+
+    /**
+     * Defining the "public API"
+     */
     return {
         init: init,
         createNewBlock: createNewBlock,
         render: render
     };
-}(jQuery, _));
+
+
+
+}(jQuery, _)); // importing jQuery and the underscore.js
+
+
 
 jQuery(function() {
     AOE_LAYOUTEDITOR.init();
-    AOE_LAYOUTEDITOR.render();
-})
+});
 
 
