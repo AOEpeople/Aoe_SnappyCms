@@ -1,6 +1,45 @@
 <?xml version="1.0" ?>
 <config>
     <aoe_layouteditor>
+
+        <pages>
+
+            <empty>
+                <references>
+                </references>
+            </empty>
+
+            <one_column>
+                <references>
+                    <content></content>
+                </references>
+            </one_column>
+
+            <two_columns_left>
+                <references>
+                    <left></left>
+                    <content></content>
+                </references>
+            </two_columns_left>
+
+            <two_columns_right>
+                <references>
+                    <content></content>
+                    <right></right>
+                </references>
+            </two_columns_right>
+
+            <three_columns>
+                <references>
+                    <left></left>
+                    <content></content>
+                    <right></right>
+                </references>
+            </three_columns>
+
+        </pages>
+
+
         <blocks>
 
             <core_text_list>

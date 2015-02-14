@@ -32,11 +32,15 @@
 
 .item {
     position: relative;
+    overflow: hidden;
+    border: 1px solid #d6d6d6;
+    margin-bottom: 15px;
 }
 
 .item .fieldset {
     border: none !important;
     padding: 15px 15px 0 15px !important;
+    margin-bottom: 0 !important;
 }
 .children-container {
     overflow: hidden;
@@ -44,7 +48,7 @@
 
 .item .children,
 .item .child {
-    /* border: 1px solid #d6d6d6; */
+    border: 1px solid #d6d6d6;
     padding: 15px;
     padding-bottom: 0;
     margin-bottom: 15px;
@@ -70,7 +74,8 @@ h3 {
     margin: 0;
     padding: 0;
 }
-.actions ul li {
+
+.entry-edit .fieldset .actions ul li {
     float: left;
     list-style-type: none;
     margin-right: 10px;

@@ -23,7 +23,7 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
      */
     var templates = {
         blockTemplate: '<div name="<%= name %>" class="item <%= tagName %> <%= csstype %> entry-edit">' +
-            '<div class="entry-edit-head"><h4><%= title %></h4><div class="actions"><ul></ul></div></div>' +
+            '<div class="entry-edit-head"><h4><%= title %> (<%= type %>)</h4><div class="actions"><ul></ul></div></div>' +
             '<div class="fieldset"><div class="preview"><%= preview %></div><div class="children-container"><%= children %></div></div>' +
         '</div>'
     }
@@ -48,7 +48,7 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
         var content = $('#page_layout_update_xml').val();
         if (!content) {
             var t = $('#page_root_template').val();
-            $.each(PAGE_CONTAINERS[t], function(key, value) {
+            $.each(AOE_LAYOUTEDITOR_PAGEDEFINITION[t].references, function(key, value) {
                 content += '<reference name="'+key+'"></reference>';
             });
         }
@@ -194,13 +194,15 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
             zones.push('<div class="children" data-zone="catchall" data-name="'+currentNode.attr('name')+'">'+ renderChildren(currentNode.children('block'))+'</div>');
         } else {
             var type = currentNode.attr('type');
-            $.each(AOE_LAYOUTEDITOR_BLOCKDEFINITION[type].children, function(key, value) {
-                if (value.maxCount == '1') {
-                    zones.push('<div class="child" data-name="'+currentNode.attr('name')+'" data-zone="' + key + '"><h3>' + key + '</h3>' + renderChildren(currentNode.children("[name='" + key + "']")) + '</div>');
-                } else {
-                    zones.push('<div class="children" data-name="'+currentNode.attr('name')+'" data-zone="' + key + '"><h3>' + key + '</h3>' + renderChildren(currentNode.children("block")) + '</div>');
-                }
-            })
+            if (typeof AOE_LAYOUTEDITOR_BLOCKDEFINITION[type].children != 'undefined') {
+                $.each(AOE_LAYOUTEDITOR_BLOCKDEFINITION[type].children, function (key, value) {
+                    if (value.maxCount == '1') {
+                        zones.push('<div class="child" data-name="' + currentNode.attr('name') + '" data-zone="' + key + '"><h3>' + key + '</h3>' + renderChildren(currentNode.children("[name='" + key + "']")) + '</div>');
+                    } else {
+                        zones.push('<div class="children" data-name="' + currentNode.attr('name') + '" data-zone="' + key + '"><h3>' + key + '</h3>' + renderChildren(currentNode.children("block")) + '</div>');
+                    }
+                })
+            }
         }
         return zones;
     }
@@ -233,6 +235,7 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
             csstype: type ? type.toLowerCase().replace(/[^a-z0-9]/g, '-') : '',
             name: name,
             title: name,
+            type: type,
             tagName: currentNode.prop("tagName"),
             children: getDropZones(currentNode).join('')
         });
@@ -262,6 +265,12 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
     var init = function() {
 
         $('#page_content').removeClass('required-entry');
+
+        $('#page_root_template').change(function() {
+            $('#page_layout_update_xml').val('');
+            initXml();
+            render();
+        })
 
         initXml();
 
@@ -313,22 +322,21 @@ var AOE_LAYOUTEDITOR = (function ($, _) {
             helper: "clone"
         });
 
-        $('#root, .block').sortable({
-            items: '.block',
+        $('.children').sortable({
+            items: '.item',
             connectWith: '.children',
             receive: function(event, ui) {
                 console.log('Receiving element');
             },
             update: function(event, ui) {
-                var parentId = $(this).parent().attr('id');
-                var $parentNode = xml.find('#'+parentId)
-                $(this).children().each(function(key, value) {
-                    var id = $(value).attr('id');
-                    console.log(id);
-                    var $blockNode = xml.find('#'+id);
-                    $parentNode.append($blockNode);
+                var parentName = $(this).closest('.item, reference').attr('name');
+                var parentXmlNode = xml.find("[name='"+parentName+"']");
+
+                $(this).find('.block').each(function(key, value) {
+                    var itemName = $(this).attr('name');
+                    var itemXmlNode = xml.find("[name='"+itemName+"']");
+                    parentXmlNode.append(itemXmlNode);
                 });
-                console.log('Changed');
                 render();
             }
         });

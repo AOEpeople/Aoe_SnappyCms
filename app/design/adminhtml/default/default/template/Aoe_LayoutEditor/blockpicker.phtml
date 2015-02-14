@@ -3,19 +3,19 @@
     <ul class="tabs-horiz">
         <?php foreach($this->getCategories() as $category): ?>
         <li>
-            <a class="tab-item-link" href="#tabs-<?php echo $category['id']; ?>">
-                <span><?php echo $category['label']; ?></span>
+            <a class="tab-item-link" href="#tabs-<?php echo $category; ?>">
+                <span><?php echo $this->__($category); ?></span>
             </a>
         </li>
         <?php endforeach; ?>
     </ul>
 
     <?php foreach($this->getCategories() as $category): ?>
-    <div id="tabs-<?php echo $category['id']; ?>">
-        <?php foreach($this->getElementsForCategory($category['id']) as $type => $block): ?>
+    <div id="tabs-<?php echo $category; ?>">
+        <?php foreach($this->getElementsForCategory($category) as $type => $block): ?>
             <div class="block-blueprint" data-type="<?php echo $type; ?>">
-                <div class="icon"><img src="<?php echo $this->getSkinUrl((string)$block->icon) ?>" alt=""/></div>
-                <div class="label"><?php echo (string)$block->label; ?></div>
+                <div class="icon"><img src="<?php echo $this->getSkinUrl($block['icon']) ?>" alt=""/></div>
+                <div class="label"><?php echo $block['label']; ?></div>
             </div>
         <?php endforeach; ?>
     </div>
@@ -24,7 +24,8 @@
 </div>
 
 <script>
-    var AOE_LAYOUTEDITOR_BLOCKDEFINITION = <?php echo Zend_Json::encode($this->getAllElements()); ?>;
+    var AOE_LAYOUTEDITOR_BLOCKDEFINITION = <?php echo Zend_Json::encode($this->getAllBlocks()); ?>;
+    var AOE_LAYOUTEDITOR_PAGEDEFINITION = <?php echo Zend_Json::encode($this->getAllPages()); ?>;
     jQuery(function() {
         jQuery('#blockpicker').tabs();
     })

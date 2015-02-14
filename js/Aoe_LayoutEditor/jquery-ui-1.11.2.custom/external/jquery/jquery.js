@@ -626,6 +626,9 @@ jQuery.extend({
 
 	// args is for internal usage only
 	each: function( obj, callback, args ) {
+		if (typeof obj == 'undefined') {
+			console.log('here');
+		}
 		var value,
 			i = 0,
 			length = obj.length,
