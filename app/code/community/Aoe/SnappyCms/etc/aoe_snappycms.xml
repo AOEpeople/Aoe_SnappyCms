@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+<config>
+    <aoe_snappycms>
+
+        <pages>
+
+            <empty>
+                <references>
+                </references>
+            </empty>
+
+            <one_column>
+                <references>
+                    <content>
+                        <label>Content Area</label>
+                        <icon>Aoe_SnappyCms/img/icons/1column.png</icon>
+                    </content>
+                </references>
+            </one_column>
+
+            <two_columns_left>
+                <references>
+                    <left>
+                        <label>Left Column</label>
+                        <icon>Aoe_SnappyCms/img/icons/2columnleft_left.png</icon>
+                    </left>
+                    <content>
+                        <label>Content Area</label>
+                        <icon>Aoe_SnappyCms/img/icons/2columnleft_right.png</icon>
+                    </content>
+                </references>
+            </two_columns_left>
+
+            <two_columns_right>
+                <references>
+                    <content></content>
+                    <right></right>
+                </references>
+            </two_columns_right>
+
+            <three_columns>
+                <references>
+                    <left></left>
+                    <content></content>
+                    <right></right>
+                </references>
+            </three_columns>
+
+        </pages>
+
+
+        <blocks>
+
+            <core_text_list>
+                <type>core/text_list</type>
+                <label>Container</label>
+                <icon>Aoe_SnappyCms/img/icons/textlist.png</icon>
+                <categories>
+                    <containers />
+                </categories>
+                <children>
+                    <catchall>
+                        <minCount>0</minCount>
+                        <maxCount>*</maxCount>
+                        <allowedTypes>
+                            <Mage_Core_Block_Abstract />
+                        </allowedTypes>
+                    </catchall>
+                </children>
+            </core_text_list>
+
+            <columns_50_50>
+                <type>Aoe_SnappyCms/Element_Container_Two5050</type>
+                <label>2 Columns [50/50]</label>
+                <icon>Aoe_SnappyCms/img/icons/50_50.png</icon>
+                <categories>
+                    <containers />
+                </categories>
+                <children>
+                    <col-left>
+                        <minCount>0</minCount>
+                        <maxCount>1</maxCount>
+                        <allowedTypes>
+                            <Mage_Core_Block_Abstract />
+                        </allowedTypes>
+                    </col-left>
+                    <col-right>
+                        <minCount>0</minCount>
+                        <maxCount>1</maxCount>
+                        <allowedTypes>
+                            <Mage_Core_Block_Abstract />
+                        </allowedTypes>
+                    </col-right>
+                </children>
+            </columns_50_50>
+
+            <columns_33_33_33>
+                <type>Aoe_SnappyCms/Element_Container_Three333333</type>
+                <label>3 Columns [33/33/33]</label>
+                <icon>Aoe_SnappyCms/img/icons/33_33_33.png</icon>
+                <categories>
+                    <containers />
+                </categories>
+                <children>
+                    <col-left>
+                        <minCount>0</minCount>
+                        <maxCount>1</maxCount>
+                        <allowedTypes>
+                            <Mage_Core_Block_Abstract />
+                        </allowedTypes>
+                    </col-left>
+                    <col-center>
+                        <minCount>0</minCount>
+                        <maxCount>1</maxCount>
+                        <allowedTypes>
+                            <Mage_Core_Block_Abstract />
+                        </allowedTypes>
+                    </col-center>
+                    <col-right>
+                        <minCount>0</minCount>
+                        <maxCount>1</maxCount>
+                        <allowedTypes>
+                            <Mage_Core_Block_Abstract />
+                        </allowedTypes>
+                    </col-right>
+                </children>
+            </columns_33_33_33>
+
+            <basic_text>
+                <type>Aoe_SnappyCms/Basic_Text</type>
+                <label>Text</label>
+                <icon>Aoe_SnappyCms/img/icons/text.png</icon>
+                <categories>
+                    <basics />
+                </categories>
+                <fields>
+                    <text>
+                        <label>Text</label>
+                        <type>editor</type>
+                    </text>
+                </fields>
+            </basic_text>
+
+            <basic_picture>
+                <type>Aoe_SnappyCms/Basic_Picture</type>
+                <label>Picture</label>
+                <icon>Aoe_SnappyCms/img/icons/pic.png</icon>
+                <categories>
+                    <basics />
+                </categories>
+                <fields>
+                    <text>
+                        <label>Picture</label>
+                        <type>editor</type>
+                    </text>
+                </fields>
+            </basic_picture>
+
+        </blocks>
+    </aoe_snappycms>
+</config>

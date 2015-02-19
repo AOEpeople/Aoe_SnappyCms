@@ -1,0 +1,162 @@
+
+.ui-draggable-dragging {
+    z-index: 9999;
+}
+
+.ui-draggable-dragging .label {
+    display: none;
+}
+
+#blockpicker {
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+
+#blockpicker ul.tabs-horiz {
+    margin: 0;
+}
+
+#blockpicker li.ui-state-active a {
+    background-color: white;
+    border-bottom: 1px solid white;
+}
+
+#blockpicker .block-blueprint {
+    margin: 10px;
+    float: left;
+}
+
+#blockpicker .block-blueprint .icon img {
+    height: 80px;
+}
+
+#blockpicker .block-blueprint .label {
+    font-size: smaller;
+}
+
+
+.item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #d6d6d6;
+    margin-bottom: 15px;
+}
+
+.item .fieldset {
+    border: none !important;
+    padding: 15px 15px 0 15px !important;
+    margin-bottom: 0 !important;
+}
+.children-container {
+    overflow: hidden;
+    margin-left: 65px;
+    margin-top: 15px;
+}
+
+.item .children,
+.item .child {
+    border: 1px solid #d6d6d6;
+    padding: 15px;
+    padding-bottom: 0;
+    margin-bottom: 15px;
+    background-color: white;
+    min-height: 30px;
+    position: relative;
+}
+
+.dropzone-label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: #ccc;
+}
+
+#snappycmstmp_contents{
+    width: 650px;
+    height: 350px;
+}
+.item .children.ui-state-highlight,
+.item .child.ui-state-highlight {
+    background: repeating-linear-gradient(
+        -55deg,
+        #5d9634,
+        #5d9634 10px,
+        #538c2b 10px,
+        #538c2b 20px
+    );
+}
+
+h3 {
+    margin: 0;
+}
+
+.actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.actions ul {
+    margin: 0;
+    padding: 0;
+}
+
+.entry-edit .fieldset .actions ul li {
+    float: left;
+    list-style-type: none;
+    margin-right: 10px;
+}
+
+#block_form_dialog h3 {
+    margin-top: 30px;
+}
+
+.form-list {
+    width: 100%;
+}
+
+textarea {
+    width: 100% !important;
+}
+
+/* Some custom colors for blocks */
+.aoe-snappycms-basic-text > .fieldset { background-color: #F4D4B8; }
+.core-text-list  > .fieldset { background-color: #DAE2C0; }
+.aoe-snappycms-element-container-two5050  > .fieldset { background-color: #C6D7F1; }
+
+/* TODO: this needs to go in a different module */
+.heath-snappycms-container-spike > .fieldset,
+.heath-snappycms-image-fullwidth > .fieldset,
+.heath-snappycms-basic-textpic > .fieldset { background-color: #B39679; }
+
+
+.heath-snappycms-container-spike.entry-edit > .entry-edit-head,
+.heath-snappycms-image-fullwidth.entry-edit > .entry-edit-head,
+.heath-snappycms-basic-textpic.entry-edit > .entry-edit-head { background-color: #251f19; }
+
+
+
+.magento_w, .magento_e, .magento_content {
+    background: none;
+    background-color: #ffffff;
+    width: 0;
+}
+
+.fieldset .icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.fieldset .summary {
+    overflow: hidden;
+}
+
+.fieldset .icon {
+    float: left;
+    margin-right: 15px;
+}
+
+.fieldset .preview {
+    margin-left: 65px;
+}

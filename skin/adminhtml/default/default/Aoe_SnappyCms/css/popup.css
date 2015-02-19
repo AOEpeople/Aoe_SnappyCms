@@ -1,0 +1,12 @@
+body {
+    background-color: white;
+}
+
+.middle {
+    background: none;
+    background-color: white;
+}
+
+textarea {
+    width: 90%;
+}

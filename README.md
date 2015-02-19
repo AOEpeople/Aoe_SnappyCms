@@ -1,4 +1,4 @@
-# Aoe_LayoutEditor
+# Aoe_SnappyCms
 
 Author: Fabrizio Branca
 

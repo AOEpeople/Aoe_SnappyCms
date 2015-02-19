@@ -1,0 +1,13 @@
+<?php /* @var $this Aoe_SnappyCms_Block_Cms_Page_Edit_Tab_Snappycms */ ?>
+
+<?php echo $this->getChildHtml('blockpicker'); ?>
+
+<div id="root"></div>
+
+<pre id="debug"></pre>
+
+
+<script>
+    var AOE_SNAPPYCMS_WYSIWYG_CONFIG = <?php echo Zend_Json::encode(Mage::getSingleton('cms/wysiwyg_config')->getConfig()); ?>;
+    var AOE_SNAPPYCMS_BLOCKEDITOR = '<?php echo $this->getUrl('*/blockeditor/index'); ?>';
+</script>

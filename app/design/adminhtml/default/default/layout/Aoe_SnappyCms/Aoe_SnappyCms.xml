@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<layout version="0.0.1">
+
+    <adminhtml_cms_page_edit>
+
+        <reference name="head">
+            <action method="addCss"><stylesheet>Aoe_SnappyCms/css/styles.css</stylesheet></action>
+            <action method="addJs"><script>Aoe_SnappyCms/jquery-ui-1.11.2.custom/external/jquery/jquery.js</script></action>
+            <action method="addJs"><script>Aoe_SnappyCms/jquery-ui-1.11.2.custom/jquery-ui.js</script></action>
+            <action method="addJs"><script>Aoe_SnappyCms/underscore.js</script></action>
+            <action method="addJs"><script>Aoe_SnappyCms/jquery.format.js</script></action>
+            <action method="addJs"><script>Aoe_SnappyCms/layout.js</script></action>
+        </reference>
+
+        <reference name="cms_page_edit_tabs">
+            <block type="Aoe_SnappyCms/cms_page_edit_tab_snappycms" name="cms_page_edit_tab_snappycms">
+                <block type="Aoe_SnappyCms/BlockPicker" name="blockpicker" />
+            </block>
+            <action method="addTab"><name>snappycms_section</name><block>cms_page_edit_tab_snappycms</block></action>
+        </reference>
+
+    </adminhtml_cms_page_edit>
+
+    <adminhtml_blockeditor_index>
+        <update handle="editor"></update>
+        <reference name="head">
+            <action method="addCss"><stylesheet>Aoe_SnappyCms/css/popup.css</stylesheet></action>
+            <action method="addJs"><script>Aoe_SnappyCms/blockeditor.js</script></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>Aoe_SnappyCms/page.phtml</template></action>
+        </reference>
+    </adminhtml_blockeditor_index>
+
+</layout>

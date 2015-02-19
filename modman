@@ -1,6 +1,6 @@
-app/etc/modules/Aoe_LayoutEditor.xml
-app/code/community/Aoe/LayoutEditor/
-app/design/adminhtml/default/default/layout/Aoe_LayoutEditor/
-app/design/adminhtml/default/default/template/Aoe_LayoutEditor/
-skin/adminhtml/default/default/Aoe_LayoutEditor
-js/Aoe_LayoutEditor
+app/etc/modules/Aoe_SnappyCms.xml
+app/code/community/Aoe/SnappyCms/
+app/design/adminhtml/default/default/layout/Aoe_SnappyCms/
+app/design/adminhtml/default/default/template/Aoe_SnappyCms/
+skin/adminhtml/default/default/Aoe_SnappyCms
+js/Aoe_SnappyCms

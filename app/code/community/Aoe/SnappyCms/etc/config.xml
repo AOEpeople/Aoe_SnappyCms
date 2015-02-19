@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Aoe_SnappyCms>
+            <version>0.0.1</version>
+        </Aoe_SnappyCms>
+    </modules>
+
+    <global>
+        <blocks>
+            <Aoe_SnappyCms>
+                <class>Aoe_SnappyCms_Block</class>
+            </Aoe_SnappyCms>
+        </blocks>
+        <helpers>
+            <Aoe_SnappyCms>
+                <class>Aoe_SnappyCms_Helper</class>
+            </Aoe_SnappyCms>
+        </helpers>
+        <models>
+            <Aoe_SnappyCms>
+                <class>Aoe_SnappyCms_Model</class>
+            </Aoe_SnappyCms>
+        </models>
+
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <Aoe_SnappyCms>
+                    <file>Aoe_SnappyCms/Aoe_SnappyCms.xml</file>
+                </Aoe_SnappyCms>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Aoe_SnappyCms before="Mage_Adminhtml">Aoe_SnappyCms_Adminhtml</Aoe_SnappyCms>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+</config>
