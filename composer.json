@@ -1,0 +1,17 @@
+{
+    "name": "AOEPeople/Aoe_SnappyCms",
+    "license": "GPLv3",
+    "type": "magento-module",
+    "description": "Magento CMS",
+    "homepage": "https://github.com/AOEpeople/Aoe_SnappyCms",
+    "authors": [
+        {
+            "name": "Fabrizio Branca",
+            "email": "{firstnam}.{lastname}@aoe.com"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
+
